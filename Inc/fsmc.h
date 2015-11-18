@@ -52,6 +52,7 @@ extern SRAM_HandleTypeDef hsram1;
 /* USER CODE END Private defines */
 
 void MX_FSMC_Init(void);
+void MX_FSMC_DeInit(void);
 void HAL_SRAM_MspInit(SRAM_HandleTypeDef* hsram);
 void HAL_SRAM_MspDeInit(SRAM_HandleTypeDef* hsram);
 

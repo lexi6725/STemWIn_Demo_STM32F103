@@ -41,22 +41,24 @@
 
 /* USER CODE END 0 */
 
-UART_HandleTypeDef huart[3];
+UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart2;
+UART_HandleTypeDef huart3;
 
 /* USART1 init function */
 
 void MX_USART1_UART_Init(void)
 {
 
-  huart[0].Instance = USART1;
-  huart[0].Init.BaudRate = 256000;
-  huart[0].Init.WordLength = UART_WORDLENGTH_8B;
-  huart[0].Init.StopBits = UART_STOPBITS_1;
-  huart[0].Init.Parity = UART_PARITY_NONE;
-  huart[0].Init.Mode = UART_MODE_TX_RX;
-  huart[0].Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart[0].Init.OverSampling = UART_OVERSAMPLING_16;
-  HAL_UART_Init(&huart[0]);
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  HAL_UART_Init(&huart1);
 
 }
 /* USART2 init function */
@@ -64,15 +66,15 @@ void MX_USART1_UART_Init(void)
 void MX_USART2_UART_Init(void)
 {
 
-  huart[1].Instance = USART2;
-  huart[1].Init.BaudRate = 115200;
-  huart[1].Init.WordLength = UART_WORDLENGTH_8B;
-  huart[1].Init.StopBits = UART_STOPBITS_1;
-  huart[1].Init.Parity = UART_PARITY_NONE;
-  huart[1].Init.Mode = UART_MODE_TX_RX;
-  huart[1].Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart[1].Init.OverSampling = UART_OVERSAMPLING_16;
-  HAL_UART_Init(&huart[1]);
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  HAL_UART_Init(&huart2);
 
 }
 /* USART3 init function */
@@ -80,15 +82,15 @@ void MX_USART2_UART_Init(void)
 void MX_USART3_UART_Init(void)
 {
 
-  huart[2].Instance = USART3;
-  huart[2].Init.BaudRate = 115200;
-  huart[2].Init.WordLength = UART_WORDLENGTH_8B;
-  huart[2].Init.StopBits = UART_STOPBITS_1;
-  huart[2].Init.Parity = UART_PARITY_NONE;
-  huart[2].Init.Mode = UART_MODE_TX_RX;
-  huart[2].Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart[2].Init.OverSampling = UART_OVERSAMPLING_16;
-  HAL_UART_Init(&huart[2]);
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 115200;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  HAL_UART_Init(&huart3);
 
 }
 
@@ -236,21 +238,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 } 
 
 /* USER CODE BEGIN 1 */
-void UART_PutString(UART_TypeDef uart, uint8_t datalen, uint8_t *pdat)
-{
-	HAL_UART_Transmit(&huart[uart], pdat,datalen, 20);
-}
 
-void UART_GetString(UART_TypeDef uart, uint8_t datalen, uint8_t *pdat)
-{
-	uint8_t timeout = 0xff;
-
-	while(timeout--)
-	{
-		if ((HAL_UART_Receive_IT(&huart[uart], pdat, datalen)) == HAL_OK)
-			break;
-	}
-}
 /* USER CODE END 1 */
 
 /**

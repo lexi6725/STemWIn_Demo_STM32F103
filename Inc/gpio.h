@@ -47,12 +47,24 @@
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
+typedef enum
+{
+	LED1 = 0,
+	LED2 = 1,
+} LED_TypeDef;
 
+typedef enum
+{
+	LED_ON = 0,
+	LED_OFF = 1,
+} LED_Status;
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+void LED_OUT(LED_TypeDef ledx, LED_Status status);
+void LED_Toggle(LED_TypeDef ledx);
 
 /* USER CODE END Prototypes */
 

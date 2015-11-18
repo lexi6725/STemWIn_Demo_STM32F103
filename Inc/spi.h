@@ -48,17 +48,8 @@
 extern SPI_HandleTypeDef hspi1;
 extern SPI_HandleTypeDef hspi2;
 
-typedef enum
-{
-	SPI_1 = 0,
-	SPI_2 = 1,
-} SPI_Type_Def;
-
 /* USER CODE BEGIN Private defines */
-#define SPI1_CS_LOW()	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
-#define SPI1_CS_HIGH()	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
 
-#define SPIX_MAX_TIMEOUT	100
 /* USER CODE END Private defines */
 
 void MX_SPI1_Init(void);

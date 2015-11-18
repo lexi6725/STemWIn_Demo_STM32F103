@@ -41,44 +41,45 @@
 
 /* USER CODE END 0 */
 
-SPI_HandleTypeDef hspi[2];
+SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi2;
 
 /* SPI1 init function */
 void MX_SPI1_Init(void)
 {
 
-  hspi[SPI_1].Instance = SPI1;
-  hspi[SPI_1].Init.Mode = SPI_MODE_MASTER;
-  hspi[SPI_1].Init.Direction = SPI_DIRECTION_2LINES;
-  hspi[SPI_1].Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi[SPI_1].Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi[SPI_1].Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi[SPI_1].Init.NSS = SPI_NSS_SOFT;
-  hspi[SPI_1].Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
-  hspi[SPI_1].Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi[SPI_1].Init.TIMode = SPI_TIMODE_DISABLED;
-  hspi[SPI_1].Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-  hspi[SPI_1].Init.CRCPolynomial = 10;
-  HAL_SPI_Init(&hspi[SPI_1]);
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLED;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
+  hspi1.Init.CRCPolynomial = 10;
+  HAL_SPI_Init(&hspi1);
 
 }
 /* SPI2 init function */
 void MX_SPI2_Init(void)
 {
 
-  hspi[SPI_2].Instance = SPI2;
-  hspi[SPI_2].Init.Mode = SPI_MODE_MASTER;
-  hspi[SPI_2].Init.Direction = SPI_DIRECTION_2LINES;
-  hspi[SPI_2].Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi[SPI_2].Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi[SPI_2].Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi[SPI_2].Init.NSS = SPI_NSS_SOFT;
-  hspi[SPI_2].Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
-  hspi[SPI_2].Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi[SPI_2].Init.TIMode = SPI_TIMODE_DISABLED;
-  hspi[SPI_2].Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-  hspi[SPI_2].Init.CRCPolynomial = 10;
-  HAL_SPI_Init(&hspi[SPI_2]);
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLED;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
+  hspi2.Init.CRCPolynomial = 10;
+  HAL_SPI_Init(&hspi2);
 
 }
 
@@ -110,14 +111,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* USER CODE BEGIN SPI1_MspInit 1 */
-  	/* SPI CS Pin:PA4 */
-	GPIO_InitStruct.Pin	= GPIO_PIN_4;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_PULLUP;
-	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-	SPI1_CS_HIGH();
   /* USER CODE END SPI1_MspInit 1 */
   }
   else if(hspi->Instance==SPI2)
@@ -144,7 +138,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* USER CODE BEGIN SPI2_MspInit 1 */
-  
+
   /* USER CODE END SPI2_MspInit 1 */
   }
 }
@@ -165,7 +159,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* hspi)
     PA6     ------> SPI1_MISO
     PA7     ------> SPI1_MOSI 
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7);
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7);
 
   /* USER CODE BEGIN SPI1_MspDeInit 1 */
 
@@ -192,99 +186,8 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* hspi)
   }
 } 
 
-static void spix_error(SPI_HandleTypeDef *phspi)
-{
-	HAL_SPI_DeInit(phspi);
-
-	if (phspi->Instance == SPI1)
-	{
-		MX_SPI1_Init();
-	}
-	else if (phspi->Instance == SPI2)
-	{
-		MX_SPI2_Init();
-	}
-}
-
-static uint8_t spix_rw_byte(SPI_Type_Def spix, uint8_t value)
-{
-	HAL_StatusTypeDef status = HAL_OK;
-	uint8_t read_value = 0;
-
-	status = HAL_SPI_TransmitReceive(&hspi[spix], &value, &read_value, 1, SPIX_MAX_TIMEOUT);
-
-	if (status != HAL_OK)
-	{
-		spix_error(&hspi[spix]);
-	}
-
-	return read_value;
-}
-
 /* USER CODE BEGIN 1 */
-uint8_t spi1_write_reg(uint8_t reg, uint8_t value)
-{
-	uint8_t status;
 
-	SPI1_CS_LOW();
-
-	status = spix_rw_byte(SPI_1, reg);
-	spix_rw_byte(SPI_1, value);
-
-	SPI1_CS_HIGH();
-
-	return status;
-}
-
-uint8_t spi1_read_reg(uint8_t reg)
-{
-	uint8_t value = 0;
-
-	SPI1_CS_LOW();
-
-	spix_rw_byte(SPI_1, reg);
-	value = spix_rw_byte(SPI_1, 0xFF);
-
-	SPI1_CS_HIGH();
-
-	return value;
-}
-
-uint8_t spi1_read_buf(uint8_t reg, uint8_t *pbuf, uint16_t len)
-{
-	uint8_t status = 0;
-
-	SPI1_CS_LOW();
-
-	status = spix_rw_byte(SPI_1, reg);
-	while(len--)
-	{
-		*pbuf = spix_rw_byte(SPI_1, 0xFF);
-		pbuf++;
-	}
-
-	SPI1_CS_HIGH();
-
-	return status;	
-}
-
-uint8_t spi1_write_buf(uint8_t reg, const uint8_t *pbuf, uint16_t len)
-{
-	uint8_t status = 0;
-
-	SPI1_CS_LOW();
-
-	status = spix_rw_byte(SPI_1, reg);
-	while(len--)
-	{
-		spix_rw_byte(SPI_1, *pbuf);
-		pbuf++;
-	}
-
-	SPI1_CS_HIGH();
-
-	return status;
-}
 /* USER CODE END 1 */
 
 /**

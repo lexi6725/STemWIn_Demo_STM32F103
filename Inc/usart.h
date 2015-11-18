@@ -45,16 +45,11 @@
 
 /* USER CODE END Includes */
 
-extern UART_HandleTypeDef huart[3];
+extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart2;
+extern UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN Private defines */
-
-typedef enum 
-{
-  UART1 = 0,
-  UART2 = 1,
-  UART3 = 2,
-}UART_TypeDef;
 
 /* USER CODE END Private defines */
 
@@ -63,8 +58,6 @@ void MX_USART2_UART_Init(void);
 void MX_USART3_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-void UART_PutString(UART_TypeDef uart, uint8_t datalen, uint8_t *pdat);
-void UART_GetString(UART_TypeDef uart, uint8_t datalen, uint8_t *pdat);
 
 /* USER CODE END Prototypes */
 

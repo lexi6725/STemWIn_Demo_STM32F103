@@ -1777,7 +1777,7 @@ HAL_StatusTypeDef HAL_I2C_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
     __HAL_LOCK(hi2c);
 
     /* Disable Pos */
-    //CLEAR_BIT(hi2c->Instance->CR1, I2C_CR1_POS);
+    CLEAR_BIT(hi2c->Instance->CR1, I2C_CR1_POS);
 
     hi2c->State = HAL_I2C_STATE_MEM_BUSY_RX;
     hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
@@ -1852,7 +1852,7 @@ HAL_StatusTypeDef HAL_I2C_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
           {
             return HAL_TIMEOUT;
           }
-		  
+
           /* Generate Stop */
           SET_BIT(hi2c->Instance->CR1, I2C_CR1_STOP);
 

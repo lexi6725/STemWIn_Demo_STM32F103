@@ -45,8 +45,7 @@
 #include "usb.h"
 #include "gpio.h"
 #include "fsmc.h"
-#include "mpu6050.h"
-#include "rf.h"
+#include "stm3210e_eval_lcd.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -75,57 +74,57 @@ void MX_FREERTOS_Init(void);
 int main(void)
 {
 
-	/* USER CODE BEGIN 1 */
+  /* USER CODE BEGIN 1 */
 
-	/* USER CODE END 1 */
+  /* USER CODE END 1 */
 
-	/* MCU Configuration----------------------------------------------------------*/
+  /* MCU Configuration----------------------------------------------------------*/
 
-	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-	HAL_Init();
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
 
-	/* Configure the system clock */
-	SystemClock_Config();
+  /* Configure the system clock */
+  SystemClock_Config();
 
-	/* Initialize all configured peripherals */
-	MX_GPIO_Init();
-	//MX_CRC_Init();
-	//MX_FSMC_Init();
-	MX_I2C1_Init();
-	//MX_IWDG_Init();
-	//MX_RTC_Init();
-	//MX_SDIO_SD_Init();
-	//MX_SPI1_Init();
-	//MX_SPI2_Init();
-	//MX_TIM4_Init();
-	MX_USART1_UART_Init();
-	//MX_USART2_UART_Init();
-	//MX_USART3_UART_Init();
-	//MX_USB_PCD_Init();
-	//rf_io_init();
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_CRC_Init();
+  MX_FSMC_Init();
+  //MX_I2C1_Init();
+  //MX_IWDG_Init();
+  //MX_RTC_Init();
+  //MX_SDIO_SD_Init();
+  MX_SPI1_Init();
+  MX_SPI2_Init();
+  MX_TIM4_Init();
+  //MX_USART1_UART_Init();
+  //MX_USART2_UART_Init();
+  //MX_USART3_UART_Init();
+  //MX_USB_PCD_Init();
+  STM3210E_LCD_Init();
 
-	/* USER CODE BEGIN 2 */
-	//mpu6050_init();
-	/* USER CODE END 2 */
+  /* USER CODE BEGIN 2 */
 
-	/* Call init function for freertos objects (in freertos.c) */
-	MX_FREERTOS_Init();
+  /* USER CODE END 2 */
 
-	/* Start scheduler */
-	osKernelStart();
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
 
-	/* We should never get here as control is now taken by the scheduler */
+  /* Start scheduler */
+  osKernelStart();
+  
+  /* We should never get here as control is now taken by the scheduler */
 
-	/* Infinite loop */
-	/* USER CODE BEGIN WHILE */
-	while (1)
-	{
-		/* USER CODE END WHILE */
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+  /* USER CODE END WHILE */
 
-		/* USER CODE BEGIN 3 */
+  /* USER CODE BEGIN 3 */
 
-	}
-	/* USER CODE END 3 */
+  }
+  /* USER CODE END 3 */
 
 }
 
@@ -168,19 +167,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void Get_MS(unsigned long *count)
-{
-	*count = (uint32_t)HAL_GetTick();
-}
 
-void Delay_ms(uint32_t ms)
-{
-	uint32_t tickstart;
-
-	tickstart = HAL_GetTick();
-	
-	while((HAL_GetTick()-tickstart) < pdMS_TO_TICKS(ms));
-}
 /* USER CODE END 4 */
 
 #ifdef USE_FULL_ASSERT
