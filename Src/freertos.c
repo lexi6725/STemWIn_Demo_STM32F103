@@ -103,7 +103,7 @@ void MX_FREERTOS_Init(void) {
 	BackgroundHandle = osThreadCreate(osThread(Background), NULL);
 
 	/* definition and creation of AppStart */
-	osThreadDef(AppStart, StartDefaultTask, osPriorityNormal, 0, 2014);
+	osThreadDef(AppStart, StartDefaultTask, osPriorityNormal, 0, 3014);
 	AppStartHandle = osThreadCreate(osThread(AppStart), NULL);
 
 	/* definition and creation of LedFlash */
@@ -135,12 +135,6 @@ void MX_FREERTOS_Init(void) {
 void Background_Task(void const * argument)
 {
 	static uint32_t ticks = 0;
-	
-	/* Activate the use of memory device feature */
-	WM_SetCreateFlags(WM_CF_MEMDEV);
-
-	/* Init the STemWin GUI Library */
-	GUI_Init();
 
 	/* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */

@@ -48,7 +48,8 @@
 #include "stm3210e_eval_lcd.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "WM.h"
+#include "GUI.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -74,57 +75,62 @@ void MX_FREERTOS_Init(void);
 int main(void)
 {
 
-  /* USER CODE BEGIN 1 */
+	/* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+	/* USER CODE END 1 */
 
-  /* MCU Configuration----------------------------------------------------------*/
+	/* MCU Configuration----------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+	HAL_Init();
 
-  /* Configure the system clock */
-  SystemClock_Config();
+	/* Configure the system clock */
+	SystemClock_Config();
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_CRC_Init();
-  MX_FSMC_Init();
-  //MX_I2C1_Init();
-  //MX_IWDG_Init();
-  //MX_RTC_Init();
-  //MX_SDIO_SD_Init();
-  MX_SPI1_Init();
-  MX_SPI2_Init();
-  MX_TIM4_Init();
-  //MX_USART1_UART_Init();
-  //MX_USART2_UART_Init();
-  //MX_USART3_UART_Init();
-  //MX_USB_PCD_Init();
-  STM3210E_LCD_Init();
+	/* Initialize all configured peripherals */
+	MX_GPIO_Init();
+	MX_CRC_Init();
+	MX_FSMC_Init();
+	//MX_I2C1_Init();
+	//MX_IWDG_Init();
+	//MX_RTC_Init();
+	//MX_SDIO_SD_Init();
+	MX_SPI1_Init();
+	MX_SPI2_Init();
+	MX_TIM4_Init();
+	//MX_USART1_UART_Init();
+	//MX_USART2_UART_Init();
+	//MX_USART3_UART_Init();
+	//MX_USB_PCD_Init();
+	STM3210E_LCD_Init();
+	/* Activate the use of memory device feature */
+	WM_SetCreateFlags(WM_CF_MEMDEV);
 
-  /* USER CODE BEGIN 2 */
+	/* Init the STemWin GUI Library */
+	GUI_Init();
 
-  /* USER CODE END 2 */
+	/* USER CODE BEGIN 2 */
 
-  /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();
+	/* USER CODE END 2 */
 
-  /* Start scheduler */
-  osKernelStart();
-  
-  /* We should never get here as control is now taken by the scheduler */
+	/* Call init function for freertos objects (in freertos.c) */
+	MX_FREERTOS_Init();
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-  /* USER CODE END WHILE */
+	/* Start scheduler */
+	osKernelStart();
 
-  /* USER CODE BEGIN 3 */
+	/* We should never get here as control is now taken by the scheduler */
 
-  }
-  /* USER CODE END 3 */
+	/* Infinite loop */
+	/* USER CODE BEGIN WHILE */
+	while (1)
+	{
+	/* USER CODE END WHILE */
+
+	/* USER CODE BEGIN 3 */
+
+	}
+	/* USER CODE END 3 */
 
 }
 
